@@ -3,13 +3,25 @@
 class User_Controller extends Base_Controller {
 
 	public $restful = true;    
-
+	public function __construct() 
+    {
+        $this->filter('before', 'auth')->only(array('index', 'profile'));
+    }
 	public function get_index()
     {
     	if (Auth::guest()) {
 			return View::make('home.index');
 		}else{
-			return View::make('user.index');;
+			$tipo = 'V';
+		
+			$count_Sellers = User::where('type','=','V')->count();
+			$all_locations = eloquent_to_json(User::where('type','=', $tipo)->get(array('id','name','company','lat','lng')));
+			$userData = eloquent_to_json(User::where_id(Auth::user()->id)->get(array('name','lat','lng')));		
+
+			return View::make('user.index')
+				->with('userlogeado', $userData)
+				->with('countsellers', $count_Sellers)
+				->with('jsonSellers', $all_locations);
 		}
     } 
 	
@@ -28,8 +40,7 @@ class User_Controller extends Base_Controller {
 	{
 		$input = Input::all();
 		$rules = array(
-			'nombre' => 'required|match:/[a-z]+/|min:3|max:15',
-			'apellido' => 'required|match:/[a-z]+/|min:3|max:20',
+			'nombre' => 'required|match:/[a-z]+/|min:3|max:40',
 			'email' => 'required|unique:users|email',
 			'password' => 'required|min:5|max:20',
 			'telefono' => 'required|numeric',
@@ -48,13 +59,15 @@ class User_Controller extends Base_Controller {
 			
 			$user = new User;
 			$user->name = $input['nombre'];
-			$user->lastname = $input['apellido'];
 			$user->email = strtolower($input['email']);
-			$user->telphone = $input['telefono'];
+			$user->telephone = $input['telefono'];
 			$user->type = $input['tipo'];
 			$user->lat = Session::get('latitud'); 
 			$user->lng = Session::get('longitud');
 			$user->password = $password;
+			if ($input['company']) {
+				$user->company = $input['company'];
+			}
 			$user->save();
 
 			Session::forget('latitud');
@@ -73,7 +86,7 @@ class User_Controller extends Base_Controller {
 			'password' => Input::get('password')
 		);
 		if (Auth::attempt($credentials)) {
-			return Redirect::to_action('user@profile');
+			return Redirect::to_action('user@index');
 		}else{
 			return Redirect::to_action('user@login')
 				->with_input('only', array('username'))
@@ -81,18 +94,11 @@ class User_Controller extends Base_Controller {
 		}   
 	}  
 
-	public function get_profile()
+	public function get_profile($id)
 	{
-		$tipo = 'V';
-		
-		$count_Sellers = User::where('type','=','V')->count();
-		$all_locations = eloquent_to_json(User::where('type','=', $tipo)->get(array('name','lastname','lat','lng')));
-		$userData = eloquent_to_json(User::where_id(Auth::user()->id)->get(array('name','lastname','lat','lng')));		
-
+		$user = User::where_id($id)->first();
 		return View::make('user.profile')
-			->with('userlogeado', $userData)
-			->with('countsellers', $count_Sellers)
-			->with('jsonSellers', $all_locations);
+			->with('user', $user);
 	}
 
 	public function get_logout()

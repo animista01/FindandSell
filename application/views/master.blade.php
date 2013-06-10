@@ -18,25 +18,32 @@
   </style>
   {{ HTML::style('css/bootstrap.css') }}
   {{ HTML::style('css/bootstrap-responsive.css') }}
+  {{ HTML::style('css/estiloMapa.css') }}
+
+  {{ HTML::style('css/lib/Alertify/theme/alertify.core.css') }}
+  {{ HTML::style('css/lib/Alertify/theme/alertify.default.css') }}
+
   {{ HTML::script('js/JQuery1.9.js') }}
   {{ HTML::script('js/bootstrap.js') }}
-  {{ HTML::script('js/jquery.blockUI.js') }}
-  {{ HTML::style('css/estiloMapa.css') }}
-  
+  {{ HTML::script('js/alertify.js') }}
 
   <script type="text/javascript">
     var BASE = "<?php echo URL::base(); ?>";
   </script>
   <script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
-  <script src="../js/geolocalizar.js"></script>
+  {{ HTML::script('js/geolocalizar.js') }}
 </head>
 <body>
   <div class="navbar">
     <div class="navbar-inner">
       <div class="container-fluid">
-        <a href="{{ URL::base(); }}" class="brand">
-          Finds and Sells
-        </a>
+        @if (!Auth::guest())
+          {{ HTML::link_to_action('user@index', "Finds and Sells" , array(), array('class' => 'brand'))}}
+        @else
+          <a href="{{ URL::base(); }}" class="brand">
+            Finds and Sells
+          </a>
+        @endif
         <div class="nav-collapse">
           <ul class="nav pull-right"> 
             @if(Auth::user())
@@ -52,10 +59,10 @@
             @endif
           </ul>
           <ul class="nav">
-            <li><a href="{{URL::base();}}">Inicio</a></li>
             @if (!Auth::guest())
-              <li class="active">
-                {{ HTML::link_to_action('user@profile', "Perfil") }} 
+              <li class="active">{{ HTML::link_to_action('user@index', "Inicio")}}
+              <li>
+                {{ HTML::link_to_action('user@profile', "Perfil", array(Auth::user()->id)) }} 
               </li>
             @endif
           </ul>

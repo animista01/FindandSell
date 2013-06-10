@@ -1,6 +1,6 @@
 #mapContainer { 
-	height: 200px;
-	width: 250px;
+	height: 244px;
+	width: 429px;
 }
 #main{
 	bottom: 0;
@@ -12,6 +12,9 @@
 #map_sellers{
 	height: 100%;
 	width: 100%;
+}
+#company{
+	display: none;
 }
 #sidebar{
   background:#f6f6f6;

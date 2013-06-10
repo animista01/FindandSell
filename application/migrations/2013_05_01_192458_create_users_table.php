@@ -9,7 +9,7 @@ class Create_Users_Table {
 			$table->string('name');
 			$table->string('lastname');
 			$table->string('email');
-			$table->integer('telphone');
+			$table->integer('telephone');
 			$table->string('type');
 			$table->float('lat');
 			$table->float('lng');

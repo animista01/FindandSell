@@ -25,22 +25,6 @@ $(function() {
     e.stopPropagation();
   });
 });
-$(document).ready(function() {
-
-  $('#aNo').click(function(e) {
-     e.preventDefault();
-    $.blockUI({
-      message: $('#oculto'),
-      css:{
-          top: '30%',
-          borderRadius: '10px'
-      }
-    }); 
-    $('.blockOverlay').attr('title','Click afuera para desbloquear').click($.unblockUI);
-  });  
-
-
-});
 
 !function ($) {
 

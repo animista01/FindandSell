@@ -2,7 +2,7 @@
 @section('content')
 	<br />	<br />	<br />
 	<div class="row">
-		<div class="span4" id="izqRegistro">
+		<div class="span5" id="izqRegistro">
 			<div class="well">
 				<legend>Registro</legend>
 				@if (Session::has('error_register'))
@@ -11,10 +11,7 @@
 				{{ Form::open('user/register', 'POST') }}
 					{{ Form::token(); }}
 					{{ $errors->first('nombre', Alert::error(":message")) }}
-					{{ Form::text('nombre',Input::old('nombre') ,array('class' => 'span3', 'placeholder' => 'Nombre')) }}
-
-					{{ $errors->first('apellido', Alert::error(":message")) }}
-					{{ Form::text('apellido', Input::old('apellido') ,array('class' => 'span3', 'placeholder' => 'Apellido')) }}
+					{{ Form::text('nombre',Input::old('nombre') ,array('class' => 'span3', 'placeholder' => 'Nombre Completo')) }}
 					
 					{{ $errors->first('email', Alert::error(":message")) }}
 					{{ Form::text('email', Input::old('email'), array('class' => 'span3', 'placeholder' => 'Email')) }}
@@ -30,14 +27,14 @@
 						<option value="C">Comprador</option>
 						<option value="V" id="vende">Vendedor</option>
 					</select>
+
+					<input type="text" name="company" id="company" class='span3' placeholder='Compañia.. ej: Avon, Lbel' />
+
 			</div>
 		</div>
-		<div class="span4" id="derRegistro">
+		<div class="span5" id="derRegistro">
 			<div class="well">
-				<br />
-				<div id="mapContainer">
-					 
-				</div>
+				<div id="mapContainer"></div>
 			
 				<label>Es esta tu ubicacion?</label>
 				<a href="#" id="aSi">Si</a> &nbsp  &nbsp
@@ -45,7 +42,7 @@
 				<br />
 				<br />
 
-				{{ Form::submit('Registrate', array('class' => 'btn btn-warning')) }}
+				{{ Form::submit('Registrate', array('class' => 'btn btn-success')) }}
 			
 				{{ Form::close() }}
 			</div>
