@@ -2,6 +2,8 @@
 
 class User_Controller extends Base_Controller {
 
+	public $layout = 'default.master';
+
 	public $restful = true;    
 	public function __construct() 
     {
@@ -12,11 +14,19 @@ class User_Controller extends Base_Controller {
     	if (Auth::guest()) {
 			return View::make('home.index');
 		}else{
+	    	$countMessages = Message::where('destination_id','=',Auth::user()->id)->count();
+	    	$messages = Message::where('destination_id','=',Auth::user()->id)->get(array('body','id')); 
+
 			$tipo = 'V';
 		
 			$count_Sellers = User::where('type','=','V')->count();
 			$all_locations = eloquent_to_json(User::where('type','=', $tipo)->get(array('id','name','company','lat','lng')));
 			$userData = eloquent_to_json(User::where_id(Auth::user()->id)->get(array('name','lat','lng')));		
+
+			//Mandamos cuanto mensajes tiene pendiente 
+    		View::share('countMessages', $countMessages);
+
+    		View::share('messages', $messages);
 
 			return View::make('user.index')
 				->with('userlogeado', $userData)
@@ -98,7 +108,8 @@ class User_Controller extends Base_Controller {
 	{
 		$user = User::where_id($id)->first();
 		return View::make('user.profile')
-			->with('user', $user);
+			->with('user', $user)
+			->with('id', $id);
 	}
 
 	public function get_logout()

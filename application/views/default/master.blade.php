@@ -46,13 +46,34 @@
         @endif
         <div class="nav-collapse">
           <ul class="nav pull-right"> 
+            @if (!Auth::guest())
+              @if(isset($countMessages))
+              <li class="dropdown visible-desktop">
+                <a href="#" class="dropdown-toogle" data-toggle="dropdown">
+                  <i class="icon-globe"></i>
+                  <span id="unread_messages">
+                    <span class="badge badge-inverse">{{$countMessages}}</span>
+                  </span>
+                  <strong class="caret"></strong>
+                </a>
+                <div class="dropdown-menu" id="dropdownNotifications">
+                  @foreach($messages as $message)
+                  <div class="span3">
+                    {{ HTML::link_to_action('message@message', e($message->body), array($message->id)) }}
+                    <hr>
+                  </div> 
+                  @endforeach
+                </div>
+              </li>
+              @endif
+            @endif
             @if(Auth::user())
               <li>{{ HTML::link_to_action('user@logout', 'Logout') }}</li>
             @else
               <li class="divider-vertical"></li>
               <li class="dropdown visible-desktop">
                 <a href="#" class="dropdown-toogle" data-toggle="dropdown">Ingresar <strong class="caret"></strong></a>
-                <div class="dropdown-menu" style="padding: 15px; padding-bottom= 0px;">
+                <div class="dropdown-menu" style="padding: 15px; height: 104px; padding-bottom= 0px;">
                   @include('user.login') 
                 </div>
               </li>
@@ -60,8 +81,8 @@
           </ul>
           <ul class="nav">
             @if (!Auth::guest())
-              <li class="active">{{ HTML::link_to_action('user@index', "Inicio")}}
-              <li>
+              <li id="inicio" class="active">{{ HTML::link_to_action('user@index', "Inicio")}}
+              <li id="liperfil">
                 {{ HTML::link_to_action('user@profile', "Perfil", array(Auth::user()->id)) }} 
               </li>
             @endif

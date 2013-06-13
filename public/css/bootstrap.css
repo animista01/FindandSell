@@ -897,6 +897,8 @@ dd {
 }
 
 hr {
+  width: 220px;
+margin-bottom: 0px;
   margin: 20px 0;
   border: 0;
   border-top: 1px solid #eeeeee;

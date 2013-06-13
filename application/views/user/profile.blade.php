@@ -1,6 +1,13 @@
-@layout('master')
+@layout('default.master')
 
 @section('content')
+	<script>
+		$(document).on("ready",inicio);
+		function inicio(){
+			$("#liperfil").addClass("active");
+			$("#inicio").removeClass("active");
+		}
+	</script>
 	<div class="row-fluid">
 		<div class="span12" id="content">
 			<div id="details" class="span7">
@@ -10,19 +17,23 @@
 		        <table class="table table-striped">
 		            <tbody>
 			            <tr>
-			                <td>Celular:</td>
-			                <td><i class="icon-headphones"></i> {{e($user->telephone)}}</td>
-			            </tr>
-			            <tr>
-			                <td>Email:</td>
-			                <td><i class="icon-envelope"></i> {{e($user->email)}}</td>
-			            </tr>
-			            <tr>
 			                <td>Trabajo:</td>
 			                <td><i class="icon-briefcase"></i> {{e($user->company)}}</td>
 			            </tr>
 		        	</tbody>
 		    	</table>
+		    	@if(Auth::user()->id != $id)
+				<div class="span5" id="concactarMensaje">	
+			    	{{ Form::open('message/message', 'POST') }}
+						{{ Form::token(); }}
+						<input type="hidden" name="some" value="{{$id}}">
+						{{ $errors->first('message', Alert::error(":message")) }}
+						{{ Form::textarea('message', Input::old('message'),array('placeholder' => 'Mensaje...', 'rows'=>'', 'cols'=>'')) }}
+						
+						{{ Form::submit('Enviar', array('class' => 'btn btn-success')) }}
+					{{ Form::close() }}
+				</div>
+				@endif
 			</div>
 		</div>
 	</div>

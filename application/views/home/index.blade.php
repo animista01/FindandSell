@@ -1,4 +1,4 @@
-@layout('master')
+@layout('default.master')
 
 @section('content')
 	<div class="row artwork hidden-phone" style="font-size:80px; text-align: center;">

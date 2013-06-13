@@ -1,6 +1,20 @@
+#concactarMensaje{
+	margin-top: -280px;
+	margin-left: 240px;
+}
+#dropdownNotifications{
+	width: 260px;
+}
 #mapContainer { 
 	height: 244px;
 	width: 429px;
+}
+#btnEntrar{
+	margin-top: -3px;
+}
+#btnRegister{
+	margin-left: 60px;
+	margin-top: -3px;
 }
 #main{
 	bottom: 0;
@@ -35,5 +49,5 @@
 	display: none;
 }
 body{
-	background-color: #5E0002;
+	background-color: #FCEFA9;
 }

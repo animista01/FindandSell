@@ -1,17 +1,27 @@
-@layout('master')
+@layout('default.master')
 @section('content')
 	<section id="sidebar">
 		<h4>Encuentra lo que quieres comprar</h4>
 		<div id="placeList">
 			<p>Hay {{ $countsellers }} Vendedores</p>
 		</div>
+
+		@if (Session::has('error_no_id'))
+			<script>
+            	alertify.error("No no no.. :P");
+			</script>
+        @endif
+
+        @if (Session::has('mensaje_enviado'))
+			<script>
+            	alertify.success("Mensaje enviado.!");
+			</script>
+        @endif
 	</section>
 	<section id="main">
-		<div id="map_sellers">
-			
-		</div>
+		<div id="map_sellers"></div>
 	</section>
-
+	
 	<script>
 		$(document).on('ready', recibe);
 		function recibe() {

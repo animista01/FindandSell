@@ -1,4 +1,4 @@
-@layout('master')
+@layout('default.master')
 @section('content')
 	<br />	<br />	<br />
 	<div class="row">
