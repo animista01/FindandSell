@@ -59,7 +59,7 @@
                 <div class="dropdown-menu" id="dropdownNotifications">
                   @foreach($messages as $message)
                   <div class="span3">
-                    {{ HTML::link_to_action('message@message', e($message->body), array($message->id)) }}
+                    {{ HTML::link_to_action('message@message', substr(e($message->body), 0, 28), array($message->id)) }}
                     <hr>
                   </div> 
                   @endforeach
