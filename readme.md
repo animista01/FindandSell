@@ -1,4 +1,4 @@
-# [Find And Sell](findandsell.pagodabox.com)
+# [Find And Sell](http://findandsell.pagodabox.com)
 
 Find And Sell es un sitio donde como comprador puedes encontrar vendedores (De algun producto de tu gusto) cerca de donde te encuentras
 
