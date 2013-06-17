@@ -1,6 +1,7 @@
 #concactarMensaje{
 	margin-top: -280px;
 	margin-left: 240px;
+	padding-bottom: 0px;
 }
 #dropdownNotifications{
 	width: 260px;
@@ -49,5 +50,13 @@
 	display: none;
 }
 body{
-	background-color: #FCEFA9;
+	background-color: rgb(48,123,197);
+}
+#h3UserName{
+	color: #fff;
+}
+#message{
+	margin: 0px 0px 10px;
+	width: 290px;
+	height: 61px;
 }

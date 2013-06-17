@@ -72,5 +72,13 @@ function geo() {
 	//Cuando no esta bien la ubicaCION
 	$('#aNo').click(function() {
       alertify.alert("Arrastra el marcador hasta tu verdadera ubicación");
-  	}); 	
+  	}); 
+
+  	//CharCounter
+  	$("#message").charCounter(200, {
+		container: "<h6></h6>",
+		classname: "pull-right",
+		format: "%1",
+		pulse: true
+	});	
 }

@@ -10,7 +10,7 @@
       margin-bottom: 30px;
     }
     .masthead h1{
-      color: #1F2C33;
+      color: #fff;
       font-size: 120px;
       line-height: 1;
       letter-spacing: -2px;
@@ -26,7 +26,7 @@
   {{ HTML::script('js/JQuery1.9.js') }}
   {{ HTML::script('js/bootstrap.js') }}
   {{ HTML::script('js/alertify.js') }}
-
+  {{ HTML::script('js/charcounter.js');}}
   <script type="text/javascript">
     var BASE = "<?php echo URL::base(); ?>";
   </script>
@@ -96,5 +96,6 @@
 		@yield('content') 
 	</div>
   @yield('perfil')
+
 </body>
 </html>
