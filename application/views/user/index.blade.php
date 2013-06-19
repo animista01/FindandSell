@@ -28,7 +28,6 @@
 			var map;
 		    var data = {{ $jsonSellers }}; //El Json
 			var user = {{ $userlogeado }};
-			console.log(user[0]);
 			var center = new google.maps.LatLng(10.943944,-74.796073);
 		    var mapOptions = {
 		        zoom: 12,
@@ -60,6 +59,23 @@
 			        });
 			    })(marker,content);
 			}//End For
+			var image = BASE+'/img/home.png';
+			var content = '<div class="infoWindow"> <strong>'+ user[0].name +' (Tu)</strong>\
+			    				<br><a href="'+BASE+'/user/profile/'+user[0].id+'">Perfil</a></div>';
+	        var position = new google.maps.LatLng(user[0].lat, user[0].lng);
+	        marker = new google.maps.Marker({
+	            position: position,
+	            map: map, 
+	            icon: image,
+	            title: user[0].name //Nombre del vendedor
+	        });
+	         
+	        (function(marker, content){                       
+		        google.maps.event.addListener(marker, 'click', function() {
+		            infowindow.setContent(content);
+		            infowindow.open(map, marker);
+		        });
+		    })(marker,content);
 		}
 	</script>
 @endsection

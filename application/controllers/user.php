@@ -21,7 +21,7 @@ class User_Controller extends Base_Controller {
 		
 			$count_Sellers = User::where('type','=','V')->count();
 			$all_locations = eloquent_to_json(User::where('type','=', $tipo)->get(array('id','name','company','lat','lng')));
-			$userData = eloquent_to_json(User::where_id(Auth::user()->id)->get(array('name','lat','lng')));		
+			$userData = eloquent_to_json(User::where_id(Auth::user()->id)->get(array('id','name','lat','lng')));		
 
 			//Mandamos cuanto mensajes tiene pendiente 
     		View::share('countMessages', $countMessages);
@@ -37,7 +37,11 @@ class User_Controller extends Base_Controller {
 	
 	public function get_register()
 	{
-		return View::make('user.register');
+		if (Auth::guest()) {
+			return View::make('user.register');
+		}else{
+			return Redirect::to_action('user@index');
+		}
 	}
 	
 	public function post_recibirCoord()

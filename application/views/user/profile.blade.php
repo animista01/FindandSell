@@ -14,6 +14,7 @@
 				<p><img src="{{ URL::base(); }}/uploads/users/default.jpg" width="160" height="160"></p>
 				<h3 id="h3UserName">{{ HTML::entities($user->name) }}</h3>
 				<br>
+		    	@if(Auth::user()->id != $id)
 		        <table class="table table-striped">
 		            <tbody>
 			            <tr>
@@ -22,7 +23,6 @@
 			            </tr>
 		        	</tbody>
 		    	</table>
-		    	@if(Auth::user()->id != $id)
 				<div class="span6 well" id="concactarMensaje">	
 			    	{{ Form::open('message/message', 'POST') }}
 						{{ Form::token(); }}
